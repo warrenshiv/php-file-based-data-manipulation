@@ -35,22 +35,15 @@ function readDataset($filename) {
     return $dataset;
 }
 
-// Function to calculate the average GPA of all employees
-function calculateAverageGPA($dataset) {
-    $totalGPA = 0;
+// Function to count the number of employees
+function countTotal($dataset) {
     $count = 0;
 
     foreach ($dataset as $employee) {
-        // Assuming GPA is stored in the 'balance' field
-        $totalGPA += $employee['balance'];
         $count++;
     }
 
-    if ($count > 0) {
-        return $totalGPA / $count;
-    } else {
-        return 0;
-    }
+    return $count;
 }
 
 // Function to count the number of single employees
@@ -59,6 +52,32 @@ function countSingle($dataset) {
 
     foreach ($dataset as $employee) {
         if ($employee['marital'] == '"single"') {
+            $count++;
+        }
+    }
+
+    return $count;
+}
+
+// Function to count the number of single employees
+function countMarried($dataset) {
+    $count = 0;
+
+    foreach ($dataset as $employee) {
+        if ($employee['marital'] == '"married"') {
+            $count++;
+        }
+    }
+
+    return $count;
+}
+
+// Function to count the number of single employees
+function countDivorced($dataset) {
+    $count = 0;
+
+    foreach ($dataset as $employee) {
+        if ($employee['marital'] == '"divorced"') {
             $count++;
         }
     }
@@ -92,16 +111,37 @@ function filterByEducationAndJob1($dataset) {
     return $count;
 }
 
-// Read the dataset from the file
-$dataset = readDataset('train.csv');
+// Function to filter and return the number of employees who are eligible for a loan
+function filterByAgeBalanceAndLoan($dataset) {
+    $count = 0;
 
-// Calculate the average GPA
-$averageGPA = calculateAverageGPA($dataset);
-echo "Average GPA: " . $averageGPA . PHP_EOL;
+    foreach ($dataset as $employee) {
+        if ($employee['age'] == '60' && $employee['balance'] == '10000' && $employee['loan'] = '"no"') {
+            $count++;
+        }
+    }
+
+    return $count;
+}
+
+// Read the dataset from the file
+$dataset = readDataset('employee.csv');
+
+// Count and display the number of employees
+$totalCount = countTotal($dataset);
+echo "Number of Employees: " . $totalCount . PHP_EOL;
 
 // Count and display the number of single employees
 $singleCount = countSingle($dataset);
 echo "Number of Single Employees: " . $singleCount . PHP_EOL;
+
+// Count and display the number of married employees
+$marriedCount = countMarried($dataset);
+echo "Number of Married Employees: " . $marriedCount . PHP_EOL;
+
+// Count and display the number of divorced employees
+$divorcedCount = countDivorced($dataset);
+echo "Number of Single Employees: " . $divorcedCount . PHP_EOL;
 
 // Count and display the number of employees with secondary education and blue-collar job
 $filteredCount = filterByEducationAndJob($dataset);
@@ -110,5 +150,9 @@ echo "Number of Employees with Secondary Education and Blue-Collar Job: " . $fil
 // Count and display the number of employees with secondary education and blue-collar job
 $filteredCount1 = filterByEducationAndJob1($dataset);
 echo "Number of Employees with Tertiary Education and Blue-Collar Job: " . $filteredCount1 . PHP_EOL;
+
+// Count and display the number of employees who are eligible for a loan
+$filteredCount2 = filterByEducationAndJob($dataset);
+echo "Number of Employees who are eligible for a loan: " . $filteredCount2 . PHP_EOL;
 
 ?>
