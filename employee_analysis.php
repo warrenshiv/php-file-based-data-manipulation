@@ -59,7 +59,7 @@ function countSingle($dataset) {
     return $count;
 }
 
-// Function to count the number of single employees
+// Function to count the number of married employees
 function countMarried($dataset) {
     $count = 0;
 
@@ -141,7 +141,7 @@ echo "Number of Married Employees: " . $marriedCount . PHP_EOL;
 
 // Count and display the number of divorced employees
 $divorcedCount = countDivorced($dataset);
-echo "Number of Single Employees: " . $divorcedCount . PHP_EOL;
+echo "Number of Divorced Employees: " . $divorcedCount . PHP_EOL;
 
 // Count and display the number of employees with secondary education and blue-collar job
 $filteredCount = filterByEducationAndJob($dataset);
